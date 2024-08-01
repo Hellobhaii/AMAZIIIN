@@ -1,0 +1,112 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h1 class="mb-6 text-3xl">New item</h1>
+        <form method="post" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>
+                <label for="id_category">Category:</label>
+                <select name="category" class="w-full py-4 px-6 rounded-xl border" required id="id_category">
+                    <option value="" selected>---------</option>
+                    <option value="5">clothes</option>
+                    <option value="2">furniture</option>
+                    <option value="6">shoes</option>
+                    <option value="3">toys</option>
+                </select>
+            </p>
+
+            <p>
+                <label for="id_name">Name:</label>
+                <input type="text" name="name" class="w-full py-4 px-6 rounded-xl border" maxlength="255" required id="id_name">
+            </p>
+
+            <p>
+                <label for="id_description">Description:</label>
+                <textarea name="description" cols="40" rows="10" class="w-full py-4 px-6 rounded-xl border" id="id_description"></textarea>
+            </p>
+
+            <p>
+                <label for="id_price">Price:</label>
+                <input type="text" name="price" class="w-full py-4 px-6 rounded-xl border" required id="id_price">
+            </p>
+
+            <p>
+                <label for="id_image">Image:</label>
+                <input type="file" name="image" class="w-full py-4 px-6 rounded-xl border" accept="image/*" id="id_image">
+            </p>
+
+            <button class = "item-btn">Create Item</button>
+        </form>
+    </div>
+
+    <style>
+        /* Add the same CSS styles as the login page */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], input[type="password"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .item-btn {
+            width: 50%;
+            height: 40px;
+            background-color: darkblue; /* Changed to orange */
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+    .item-btn:hover {
+            background-color: green; /* Changed to darker orange */
+        }
+
+        /* Add styles for file input */
+        input[type="file"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="file"]:hover {
+            border-color: #aaa;
+        }
+    </style>
+
+{% endblock %}

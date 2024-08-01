@@ -1,0 +1,64 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+<style>
+  .profile {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+  .profile h1 {
+    color:Red;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .profile p{
+    font-weight: bold;
+  }
+  .make-changes {
+    display:inline-block; 
+    display: inline-block; /* Make it an inline block element */
+    background-color: #3498db; /* Same background color as the submit button */
+    color: #000; /* Black text color */
+    font-size: 16px; /* Same font size as the submit button */
+    font-weight: bold; /* Bold font weight */
+    text-transform: uppercase; /* Uppercase text */
+    padding: 10px 20px; /* Add some padding to make it look like a button */
+    border: none; /* Remove the border */
+    border-radius: 5px; /* Add a border radius to make it look like a button */
+    cursor: pointer; /* Change the cursor to a pointer on hover */
+    transition: background-color 0.2s ease-in-out; /* Add a transition effect */
+    text-decoration: none; /* Remove underline */
+    margin: 0 auto; /* Center the element */
+    width: fit-content;
+  }
+  .make-changes a {
+    color: #000; /* Black text color */
+    text-decoration: none; /* Remove underline */
+  }
+  .make-changes:hover {
+    background-color: #2ecc71; /* Change the background color on hover */
+  }
+  .center {
+    text-align: center;
+  }
+
+</style>
+<div class = "profile">
+  <h1>Profile</h1>
+  
+  <p>Username: {{ request.user.username }}</p>
+  <p>Email: {{ request.user.email }}</p>
+  <p>First Name: {{ request.user.first_name }}</p>
+  <p>Last Name: {{ request.user.last_name }}</p>
+
+  
+</div>
+<h4 class ="make-changes"><a href="{% url 'core:update_profile' %}">Make Changes</a></h4>
+{% endblock %}

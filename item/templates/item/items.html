@@ -1,0 +1,63 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Items{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <form method="get" action="{% url 'item:items' %}">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Search</h2>
+                        <input name="query" class="form-control" type="text" value="{{ query }}" placeholder="Find a bike, a chair or car...">
+                        <button class="btn btn-orange btn-block mt-2">Search</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h2 class="card-title" style="color: #8e44ad">Categories</h2>
+                    <ul class="list-group">
+                        {% for category in categories %}
+                            <li class="list-group-item">
+                                <a href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}" style="color: #8e44ad; text-decoration: none">{{ category.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h2 class="card-title" style="color: #2ecc71">Filters</h2>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="{% url 'item:items' %}" style="color: #2ecc71; font-weight: bold; text-decoration: none">Clear filters</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="row">
+                {% for item in items %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <a href="{% url 'item:detail' item.id %}" style="text-decoration: none">
+                                <img src="{{ item.image.url }}" class="card-img-top">
+                                <div class="card-body">
+                                    <h2 class="card-title" style="color: #3498db">{{ item.name }}</h2>
+                                    <p class="card-text" style="color: #e74c3c">Price: ₹{{ item.price }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

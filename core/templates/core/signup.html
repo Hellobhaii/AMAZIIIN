@@ -1,0 +1,144 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block content %}
+  <style>
+    /* Global Styles */
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Styles */
+
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"], input[type="password"], input[type="email"] {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+      border-color: #aaa;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .signup-btn {
+      width: 100%;
+      height: 40px;
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: background-color 0.2s ease-in-out;
+  }
+  
+  .signup-btn:hover {
+      background-color: #2ecc71;
+  }
+
+    /* Error Styles */
+
+    .text-red-500 {
+      color: #f44336;
+    }
+
+    .bg-red-100 {
+      background-color: #ffe6e6;
+    }
+
+    .border-red-500 {
+      border-color: #f44336;
+    }
+
+    .text-xs {
+      font-size: 12px;
+    }
+
+    .mt-1 {
+      margin-top: 10px;
+    }
+  </style>
+
+  <div class="container mx-auto p-4 pt-6 pb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Create an account</h1>
+    <form method="post" action=".">
+      {% csrf_token %}
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Username</label>
+        {{ form.username }}
+        <div class="text-red-500 text-xs mt-1">{{ form.username.errors }}</div>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+        {{ form.email }}
+        <div class="text-red-500 text-xs mt-1">{{ form.email.errors }}</div>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password1">Password</label>
+        {{ form.password1 }}
+        <div class="text-red-500 text-xs mt-1">{{ form.password1.errors }}</div>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password2">Repeat password</label>
+        {{ form.password2 }}
+        <div class="text-red-500 text-xs mt-1">{{ form.password2.errors }}</div>
+      </div>
+
+      {% if form.errors or form.non_field_errors %}
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4">
+          {% for field in form %}
+            {{ field.errors }}
+          {% endfor %}
+
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
+
+      <button class="signup-btn ">
+        Sign up
+      </button>
+    </form>
+  </div>
+{% endblock %}

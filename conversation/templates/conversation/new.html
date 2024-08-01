@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+
+{% block title %}New conversation{% endblock %}
+
+{% block content %}
+<h1 class="mb-5 text-4xl font-bold">New conversation</h1>
+
+<form method="post" action=".">
+    {% csrf_token %}
+
+    <div class="flex flex-wrap -mx-3 mb-6">
+        {{ form.as_p }}
+    </div>
+
+    {% if form.errors or form.non_field_errors %}
+        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 mb-4">
+            {% for field in form %}
+                {{ field.errors }}
+            {% endfor %}
+
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Send</button>
+</form>
+{% endblock %}

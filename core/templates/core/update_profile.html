@@ -1,0 +1,127 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <title>Amaziin</title>
+    <style>
+   /* Add some basic styling to the form */
+   form {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form h1 {
+    margin-top: 0;
+    font-weight: bold;
+    color: #3498db;
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+form input[type="text"], form input[type="email"], form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+}
+
+form button[type="submit"] {
+    background-color: #3498db;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+    background-color: #2c3e50;
+}
+    </style>
+</head>
+<body>
+
+
+  <div class="container">
+        
+  <h1>Update Profile</h1>
+  <form method="post">
+    <input type="hidden" name="csrfmiddlewaretoken" value="zZS5WRhzHDprnr5s1k5InAtn7PkOYDIhmVM8yfceBmMt0yxQsKLn6cd41bbJDw6X">
+    <p>
+    <label for="id_username">Username:</label>
+    <input type="text" name="username" value="dhruv" maxlength="150" required id="id_username">
+    
+    
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_email">Email address:</label>
+    <input type="email" name="email" value="aa@gmail.com" maxlength="254" id="id_email">
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_first_name">First name:</label>
+    <input type="text" name="first_name" value="hello" maxlength="150" id="id_first_name">
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_last_name">Last name:</label>
+    <input type="text" name="last_name" value="bhaiiii" maxlength="150" id="id_last_name">
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_password">Current Password:</label>
+    <input type="password" name="password" id="id_password">
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_new_password">New Password:</label>
+    <input type="password" name="new_password" id="id_new_password">
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_confirm_new_password">Confirm New Password:</label>
+    <input type="password" name="confirm_new_password" id="id_confirm_new_password">
+    
+    
+      
+    
+  </p>
+    
+    <button type="submit">Update Profile</button>
+  </form>
+
+    </div>
+
+
+{% endblock %}

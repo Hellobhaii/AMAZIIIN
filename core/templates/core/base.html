@@ -1,0 +1,242 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <title>Amaziin</title>
+    <style>
+/* Global Styles */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar Styles */
+/* Navbar Styles */
+
+nav {
+    background-color: #3498db; /* Cool blue color */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #2c3e50; /* Darker blue color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 30px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+nav a:hover {
+    background-color: #2c3e50; /* Darker blue color */
+    color: #ccccff;
+}
+
+nav.nav-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav.nav-links a {
+    margin-right: 30px;
+}
+
+/* Add a logo to the navbar */
+
+nav .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-right: 20px;
+}
+
+/* Change the color of the shopping cart icon */
+
+nav a.btn btn-outline-dark {
+    color: #ffffff;
+    border-color: #2c3e50;
+}
+
+nav a.btn btn-outline-dark:hover {
+    background-color: #2c3e50;
+    color: #ccccff;
+}
+
+/* Change the color of the badge */
+
+nav .badge {
+    
+    color: #ffffff;
+}
+/* Desktop View */
+
+@media (min-width: 769px) {
+    nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    nav a {
+        margin-right: 30px;
+    }
+    nav.nav-links {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    nav.nav-links a {
+        margin-right: 30px;
+    }
+}
+
+/* Tablet View */
+
+@media (min-width: 481px) and (max-width: 768px) {
+    nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    nav a {
+        margin-right: 20px;
+    }
+    nav.nav-links {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    nav.nav-links a {
+        margin-right: 20px;
+    }
+}
+
+/* Mobile View */
+
+@media (max-width: 480px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    nav a {
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    nav.nav-links {
+        flex-direction: column;
+    }
+    nav.nav-links a {
+        margin-right: 0;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+}
+
+/* Footer Styles */
+
+footer {
+    background-color: #f7f7f7;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+footer p span {
+    font-weight: bold;
+}
+footer a {
+    color: #337ab7; /* Change the color to a blue shade */
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+footer a:hover {
+    color: #23527c; /* Change the hover color to a darker blue shade */
+}
+.fa-amazon {
+    font-family: 'Font Awesome 5 Brands';
+}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-brand">
+            <a href="/" class="text-lg font-semibold" style="display: flex; align-items: center;">
+                <i class="fa fa-amazon" style="font-size: 24px; margin-right: 5px;"></i>Amaziin
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="{% url 'core:profile' %}" class="nav-link">
+                <i class="fas fa-user"></i>
+                Profile</a>
+            <a href="{% url 'item:new' %}" class="nav-link">New item</a>
+            <a href="{% url 'item:items' %}" class="nav-link">Browse</a>
+            <a href="{% url 'cart:cart_summary' %}" class="btn btn-outline-dark">
+                <i class="fas fa-shopping-cart solid"></i>
+                Cart 
+                <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{ cart|length }}</span>
+            </a>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'conversation:inbox' %}" class="nav-link">Inbox</a>
+            <a href="{% url 'dashboard:index' %}" class="nav-link">Dashboard</a>
+            <a href="{% url 'core:logout' %}" class="nav-link">Logout</a>
+            {% else %}
+            <a href="{% url 'core:signup' %}" class="nav-link">Sign up</a>
+            <a href="{% url 'core:login' %}" class="nav-link">Log in</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <div>
+                <h4>About</h4>
+                
+                    <p><a href="{% url 'core:contact' %}" class="text-lg text-teal-500 hover:text-teal-700">Contact</a></p>
+
+            </div>
+        </div>
+        <p>&copy; 2024 Amaziin. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

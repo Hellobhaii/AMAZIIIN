@@ -1,0 +1,304 @@
+{% extends 'core/base.html' %}
+
+
+{% block title %}Your cart{% endblock %}
+
+{% block content %}
+<h1>Your cart</h1>
+<style>
+/* Global styles */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0px;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+h1, h2, h3, h5, h6 {
+  font-weight: bold;
+  color: #FF69B4;
+  margin-bottom: 0.5em;
+  text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+}
+
+p {
+  margin-bottom: 1em;
+  color: #666;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  color: #337ab7;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #352677;
+}
+
+/* Cart item styles */
+
+.cart-item .item-info {
+  padding: 20px;
+  
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.cart-item .item-info:hover {
+  box-shadow: #352677;
+}
+
+.item-name {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+}
+
+.cart-item .item-info p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.cart-item .item-info .price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #337ab7;
+  margin-bottom: 10px;
+}
+
+.cart-item .item-info .price::before {
+  content: "$";
+  font-size: 14px;
+  color: #337ab7;
+  margin-right: 5px;
+}
+
+
+# h3 {
+    padding: 20px;
+  
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Button styles */
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #337ab7;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+}
+
+.btn:hover {
+  background-color: #352677;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Responsive styles */
+
+@media (max-width: 768px) {
+  .cart-item {
+    flex-direction: column;
+  }
+  .cart-item img {
+    height: 100px;
+  }
+  .cart-item .item-info {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-item {
+    padding: 10px;
+  }
+  .cart-item img {
+    height: 50px;
+  }
+  .cart-item .item-info {
+    padding: 5px;
+  }
+}
+.cart-item button[type="button"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #337ab7;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 15px;
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+  
+  .option label {
+    font-size: 14px;
+    color: #666;
+    margin-right: 8px;
+  }
+  
+  .option select {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  .checkout button[type="submit"] {
+    font-size: 18px; /* increase font size */
+    font-weight: bold; /* make it bold */
+    text-align: center; /* center the text */
+    width: 100%; /* make it full-width */
+    margin: 0 auto; /* center the button horizontally */
+    padding: 12px 20px; /* add some extra padding */
+    border: 3px solid #ddd;
+    border-radius: 01px;
+    cursor: pointer;
+ 
+}
+  .checkout button[type="submit"]:hover {
+    background-color: seagreen; 
+  }
+  .update button[type="button"] + button[type="button"] {
+    margin-left: 10px;
+    
+  }
+  .update button[type="button"]:hover {
+    background-color: purple;
+    transition: background-color 0.2s ease;
+  }
+</style>
+<div>
+    {% for item in cart_items %}
+    <div class = "cart-item">
+        <div class = "item-info">
+        <img src="{{ item.image.url }}" alt="Item image">
+
+        <div class = 'item-name'><a href="{% url 'item:detail' item.id  %}">{{ item.name }}</a></h2>
+        <p>Price:₹{{ item.price }}</p>
+        <p>Seller: {{ item.created_by.username }}</p>
+        {% if item.description %}
+            <p>Info:{{ item.description }}</p>
+    
+        {% endif %}
+        {% if request.user == item.created_by %}
+            <p>This is your item!</p>
+            <a href="{% url 'item:edit' item.id %}">Edit</a>
+            <a href="{% url 'item:delete' item.id %}">Delete</a>
+        {% else %}
+            <h3> <a href="{% url 'conversation:new' item.id %}">Contact seller</a></h3>
+        {% endif %}
+        <div class = "option">
+        <select id="select{{ item.id }}">
+            {% for key, value in quantities.items %}
+            {% if key == item.id|slugify %}
+                <option selected>{{ value }}</option>
+            {% endif %}
+            {% endfor %}
+            {% comment %} <option value="1">1</option> {% endcomment %}
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <div class="update">
+          <button type="button" class="update-cart" data-index="{{ item.id }}"><i class="fas fa-sync-alt"></i> Update</button>
+          <button type="button" class="delete-item" data-index="{{ item.id }}"><i class="fas fa-trash-alt"></i></button>
+      </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<h4><strong>Total price:₹{{totals}}</strong></h4>
+    
+<form action="{% url 'cart:checkout' %}" method="post">
+    {% csrf_token %}
+    <div class = "checkout"> <button type="submit">Checkout</button>
+</form>
+
+    </div>
+
+<script>
+  $(document).on('click', '.update-cart', function(e) {
+    e.preventDefault();
+    var itemid = $(this).data('index');
+    $.ajax({
+        type: 'POST',
+        url: '{% url "cart:cart_update" %}',
+        data: {
+            item_id: $(this).data('index'),
+            item_qty: $('#select' + itemid + ' option:selected').val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+        success: function(json) {
+            location.reload();
+        },
+        error: function(xhr, errmsg, err) {}
+    });
+});
+
+    $(document).on('click', '.delete-item', function(e) {
+    e.preventDefault();
+    var itemid = $(this).data('index');
+    $.ajax({
+        type: 'POST',
+        url: '{% url "cart:cart_delete" %}',
+        data: {
+        item_id: $(this).data('index'),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+        },
+        success: function(json) {
+        location.reload();
+        },
+        error: function(xhr, errmsg, err) {}
+    });
+    });
+</script>
+{% endblock %}
