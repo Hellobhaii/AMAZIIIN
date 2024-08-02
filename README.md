@@ -17,7 +17,7 @@ SQLite: Database management system for storing and retrieving data.
 Python 3.9: Built with the latest version of Python, ensuring a fast and efficient platform.
 Getting Started
 Installation
-Clone the repository: git clone https://github.com/your-username/amaziin.git
+Clone the repository: git clone https://github.com/hellobhaii/amaziin.git
 Install the required packages: pip install -r requirements.txt
 Run the migrations: python manage.py migrate
 Start the server: python manage.py runserver
