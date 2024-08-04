@@ -1,2 +1,1 @@
-web: gunicorn Amaziin.wsgi --log-file-
-
+web: gunicorn Amaziin.wsgi:application
