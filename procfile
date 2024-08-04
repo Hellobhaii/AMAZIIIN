@@ -1,1 +1,1 @@
-web: gunicorn --chdir src/Amaziin Amaziin.wsgi:application --log-level debug
+web: gunicorn --chdir src/Amaziin --app Amaziin.wsgi:application --log-level debug
