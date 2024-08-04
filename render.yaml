@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: amaziin
+    env: python
+    runtime:
+      version: '3.11'
+    src: .
+    command: gunicorn --chdir src/Amaziin Amaziin.wsgi:application --log-level debug
+    ports:
+      - port: 80
+        protocol: http
