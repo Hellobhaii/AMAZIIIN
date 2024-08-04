@@ -1,1 +1,1 @@
-web: gunicorn Amaziin.wsgi:application
+web: gunicorn --chdir src Amaziin.wsgi:application
